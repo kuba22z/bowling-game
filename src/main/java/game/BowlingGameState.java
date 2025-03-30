@@ -13,10 +13,13 @@ class BowlingGameState {
         this.numberOfPins = numberOfPins;
         this.numberOfFrames = numberOfFrames;
         this.currentRoll = 0;
-        this.rolls = new int[numberOfFrames * 2 + 1];
+        this.rolls = new int[getMaxNumOfRolls(numberOfFrames)];
     }
 
     public void roll(int pin) {
+        if (currentRoll + 1 > getMaxNumOfRolls(numberOfFrames)) {
+            throw new IllegalStateException("Too many rolls");
+        }
         rolls[currentRoll++] = pin;
     }
 
@@ -65,6 +68,10 @@ class BowlingGameState {
 
     private boolean hasRoll(int offset) {
         return currentRoll - offset >= 0;
+    }
+
+    private int getMaxNumOfRolls(int numberOfFrames) {
+        return numberOfFrames * 2 + 1;
     }
 
     private boolean isStrike(int rollIndex) {
