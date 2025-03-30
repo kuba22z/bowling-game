@@ -11,7 +11,24 @@ class BowlingGameState {
     }
 
     public int calculateScore() {
-        return 0;
+        int score = 0;
+
+        for (int frame = 0, rollIndex = 0; frame < 10; frame++) {
+            if (isStrike(rollIndex)) {
+                score += ALL_PINS + strikeBonus(rollIndex);
+                rollIndex++;
+            }
+            else if (isSpare(rollIndex)) {
+                score += ALL_PINS + spareBonus(rollIndex);
+                rollIndex += 2;
+            }
+            else {
+                score += sumPinsInFrame(rollIndex);
+                rollIndex += 2;
+            }
+        }
+
+        return score;
     }
 
     private int getRoll(int rollIndex) {
