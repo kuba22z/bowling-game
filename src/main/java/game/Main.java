@@ -19,12 +19,15 @@ public class Main {
             }
         }
 
-        if(game.hasPreviousFrameSpare() || game.hasPreviousFrameStrike()) {
-            int bonusRolls = game.hasPreviousFrameStrike() ? 2 : 1;
-
-            for (int i = 0; i < bonusRolls; i++) {
-                game.roll(promptValidScore(scanner, "Enter bonus roll: ", 0, game.getNumberOfPins()));
-            }
+        final var bonusRollMessage = "Enter bonus roll: ";
+        if(game.hasPreviousFrameSpare()) {
+            game.roll(promptValidScore(scanner, bonusRollMessage, 0, game.getNumberOfPins()));
+        }
+        else if(game.hasPreviousFrameStrike()) {
+                game.roll(promptValidScore(scanner, bonusRollMessage, 0, game.getNumberOfPins()));
+                if (game.hasCurrentFrameStrike()) {
+                    game.roll(promptValidScore(scanner, bonusRollMessage, 0, game.getNumberOfPins()));
+                }
         }
 
         scanner.close();
