@@ -35,6 +35,14 @@ class BowlingGameState {
         return hasRoll(1) && isStrike(currentRoll - 1);
     }
 
+    public boolean hasPreviousFrameStrike() {
+        return hasRoll(2) && isStrike(currentRoll - 2);
+    }
+
+    public boolean hasPreviousFrameSpare() {
+        return hasRoll(2) && isSpare(currentRoll - 2);
+    }
+
     private int getRoll(int rollIndex) {
         return rolls[rollIndex];
     }

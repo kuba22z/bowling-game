@@ -18,8 +18,16 @@ public class Main {
                 game.roll(secondRoll);
             }
         }
-        scanner.close();
 
+        if (game.hasPreviousFrameSpare()) {
+            game.roll(promptValidScore(scanner, "Enter bonus roll: ", 0, 10));
+        }
+        else if (game.hasPreviousFrameStrike()) {
+            game.roll(promptValidScore(scanner, "Enter bonus roll: ", 0, 10));
+            game.roll(promptValidScore(scanner, "Enter second bonus roll: ", 0, 10));
+        }
+
+        scanner.close();
         System.out.println("Final Score: " + game.calculateScore());
     }
 
