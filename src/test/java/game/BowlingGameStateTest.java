@@ -22,7 +22,7 @@ class BowlingGameStateTest {
     @MethodSource("calculateScoreTestArguments")
     @ParameterizedTest
     void calculateScoreTest(List<Integer> pins, int expectedScore) {
-        final var game =new BowlingGameState();
+        final var game =new BowlingGameState(10,10);
 
         pins.forEach(game::roll);
 
