@@ -19,12 +19,11 @@ public class Main {
             }
         }
 
-        if (game.hasPreviousFrameSpare()) {
-            game.roll(promptValidScore(scanner, "Enter bonus roll: ", 0, 10));
-        }
-        else if (game.hasPreviousFrameStrike()) {
-            game.roll(promptValidScore(scanner, "Enter bonus roll: ", 0, 10));
-            game.roll(promptValidScore(scanner, "Enter second bonus roll: ", 0, 10));
+        if(game.hasPreviousFrameSpare() || game.hasPreviousFrameStrike()) {
+            int bonusRolls = game.hasPreviousFrameStrike() ? 2 : 1;
+            for (int i = 0; i < bonusRolls; i++) {
+                game.roll(promptValidScore(scanner, "Enter bonus roll: ", 0, 10));
+            }
         }
 
         scanner.close();
