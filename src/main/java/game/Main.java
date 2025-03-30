@@ -7,9 +7,20 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         final var game = new BowlingGameState();
 
-        final var score = promptValidScore(scanner, "Enter 1.roll: ", 0, 10);
+        for (int frame = 1; frame <= 10; frame++) {
+            System.out.println("Frame " + frame);
 
+            final var firstRoll = promptValidScore(scanner, "Enter 1.roll: ", 0, 10);
+            game.roll(firstRoll);
+
+            if (!game.hasCurrentFrameStrike()) {
+                final var secondRoll = promptValidScore(scanner, "Enter 2.roll: ", 0, 10 - firstRoll);
+                game.roll(secondRoll);
+            }
+        }
         scanner.close();
+
+        System.out.println("Final Score: " + game.calculateScore());
     }
 
     private static int promptValidScore(Scanner scanner, String message, int min, int max) {
